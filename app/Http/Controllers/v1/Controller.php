@@ -29,4 +29,15 @@ class Controller extends BaseController
             headers: ['Content-Type' => 'application/json'],
         );
     }
+
+    public function debug(Request $request)
+    {
+        $lang = $request->input('lang', 'en');
+
+        $response = [
+            'language' => ($lang == 'fr') ? 'Français' : 'Some default language'
+        ];
+
+        return $this->responseAsJson(json_encode($response));
+    }
 }

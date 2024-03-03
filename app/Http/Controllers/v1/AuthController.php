@@ -44,6 +44,26 @@ class AuthController extends Controller
      *
      * @return void
      */
+
+
+     public function fetchJoke()
+    {
+        $response = Http::get('https://official-joke-api.appspot.com/random_joke');
+
+        // Check if the request was successful
+        if ($response->successful()) {
+            // Decode the JSON response
+            $jokeData = $response->json();
+
+            // You can process the data or directly return it
+            return $this->responseAsJson($jokeData);
+        } else {
+            // Handle the case where the external API request failed
+            return $this->responseAsJson(['error' => 'Failed to fetch joke'], 500);
+        }
+    }
+
+
     public function __construct(Request $request)
     {
         $this->middleware('auth:api')->only([
